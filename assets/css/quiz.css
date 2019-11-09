@@ -1,3 +1,12 @@
 #quizBox {
     background-color: lightblue
  }
+
+#timer {
+    font-size: 30px;
+}
+
+#highScore {
+    border: 1px solid blue;
+    float: bottom;
+}
