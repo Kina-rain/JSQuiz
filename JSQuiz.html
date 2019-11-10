@@ -16,16 +16,30 @@
 
 <body>
 
-    <!--  My Header stating Quiz  -->
+    <!--  My Header stating Quiz using Jumbotron and grid system -->
     <div class="jumbotron bg-info text-white text-center">
         <h1 class="display-4">JavaScript Quiz!</h1>
         <p class="lead">This is a simple quiz for our JavaScript unit. You have 150 seconds to complete the quiz.</p>
-        <p>Your score will get tallied as you go.</p>
+        <p>You will get your score at the end of the Quiz.</p>
         <hr class="my-4">
-        <div class="text-center" id="quizStart">
-            <a class="btn btn-primary btn-lg" href="#" id="startButton">Click to Start</a>
-        </div>
         <div class="container">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <!-- start button -->
+                <div class="col-lg-3">
+                    <div class="text-right" id="quizStart">
+                        <a class="btn btn-primary btn-lg btn-block mb-3" href="#" id="startButton">Click to Start</a>
+                    </div>
+                </div>
+                <!-- high score panel-->
+                <div class="col-lg-3">
+                    <div class="text-left" id="highScoreBtn">
+                        <a class="btn btn-primary btn-lg btn-block mb-3" href="#" id="showHighScore">Quiz High Scores</a>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+            <!-- timer set -->
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 text-center">
@@ -39,28 +53,37 @@
     <div class="container" id="quizArea"></div>
 
     <!-- Highscore score board  -->
-    <div class="container d-none">
+    <div class="container d-none" id="topScore">
         <div class="row" id="highScore">
             <div class="col-sm-4" style="background-color:lavender;"></div>
             <div class="col-sm-4" style="background-color:lavender;">
-
+                <div class="input-group-md-3" id="scoreContainer">
+                    <div class="input-group-prepend">
+                        <span class="btn btn-primary" id="storeScoreBtn">Store High Scores</span>
+                    </div>
+                    <input type="text" id="initialUser" class="form-control" placeholder="Add your initials here"
+                        aria-label="High Score Initials" aria-describedby="High Score Initials">
+                </div>
             </div>
-            <div class="col-sm-4" style="background-color:lavender;"></div>
+            <div class="col-sm-4" style="background-color:lavender;">
+                <label for="bg-light" id="userScoreLabel"></label>
+            </div>
         </div>
+    </div>
 
 
-        <script src="assets/js/quiz.js"></script>
-        <script src="assets/js/questions.js"></script>
-        <!-- link to bootstrap javascript-->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+    <script src="assets/js/quiz.js"></script>
+    <script src="assets/js/questions.js"></script>
+    <!-- link to bootstrap javascript-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

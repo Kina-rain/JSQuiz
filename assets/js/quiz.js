@@ -1,19 +1,68 @@
-var timerRunning;
 const theTimer = document.querySelector("#timer");
 const startButton = document.querySelector("#quizStart");
+const highScoreBtn = document.querySelector("#highScoreBtn");
+const topScoreArea = document.querySelector("#topScore");
 const quizArea = document.querySelector("#quizArea");
+const storeScoreBtn = document.querySelector("#storeScoreBtn");
+const userScoreLabel = document.querySelector("#userScoreLabel");
+const scoreContainer = document.querySelector("#scoreContainer");
+const highScore = document.querySelector("#highScore");
+
+var timerRunning;
 var timer;
 var userScore = 0;
 
+// event listener for score and disappearing display and start timer
 startButton.addEventListener("click", function () {
 	startButton.children[0].setAttribute("class", "d-none");
+	highScoreBtn.children[0].setAttribute("class", "d-none");
+	topScoreArea.setAttribute("class", "container d-none");
 
 	var testDurration = quizData.length * 30;
+	userScore = 0;
 
 	startTimer(testDurration, theTimer);
 	startQuiz();
 });
 
+//  high score button and event Listener and show scores
+highScoreBtn.addEventListener("click", function () {
+	showScoreArea(false, 0);
+});
+
+// score button and click and storage the value
+storeScoreBtn.addEventListener("click", function () {
+	var userInit = document.querySelector("#initialUser").value;
+	localStorage.setItem(userInit, userScore);
+	displayScore();
+});
+
+
+// clears the scores to start quiz and show initials at the end of the Quiz
+function showScoreArea(showInitials, quizScore) {
+	userScoreLabel.innerHTML = "";
+
+	if (showInitials) {
+		userScoreLabel.innerHTML = "Your Score was: " + quizScore;
+
+		// Quiz scores and display button with disappear event
+		topScoreArea.setAttribute("class", "container");
+		scoreContainer.setAttribute("class", "input-group mb-3");
+		highScoreBtn.children[0].innerHTML = "Hide High Score";
+	} else {
+		if (highScoreBtn.children[0].innerHTML === "Quiz High Scores") {
+			topScoreArea.setAttribute("class", "container");
+			scoreContainer.setAttribute("class", "input-group mb-3 d-none");
+			highScoreBtn.children[0].innerHTML = "Hide High Scores";
+		} else {
+			topScoreArea.setAttribute("class", "container d-none");
+			scoreContainer.setAttribute("class", "input-group mb-3 d-none");
+			highScoreBtn.children[0].innerHTML = "Quiz High Scores";
+		}
+	}
+
+	displayScore();
+}
 
 //  Start button to start timer and quiz.
 function startQuiz() {
@@ -42,9 +91,7 @@ function startQuiz() {
 
 		//cycle to the next quest, but we need to check if its the last
 		if ($(".carousel-item:last").hasClass("active")) {
-			// log the score and ending quiz
-			console.log(userScore);
-			localStorage.setItem("userScore", userScore);
+			// end the quiz
 			endQuiz();
 
 		} else {
@@ -66,13 +113,40 @@ function checkAnswer(userChoice, qIndex) {
 	return correctOrNot;
 }
 
+//  adds up score stores it, stops timer, and hides test area.
 function endQuiz() {
 	userScore += timer;
 	clearInterval(timerRunning);
 	var quizCarousel = document.querySelector("#carousel-quiz");
 	quizCarousel.setAttribute("class", "d-none");
+
+
+	//  resets timer
+	startButton.children[0].setAttribute("class", "btn btn-primary btn-lg btn-block");
+	highScoreBtn.children[0].setAttribute("class", "btn btn-primary btn-lg btn-block");
+	theTimer.innerHTML = "00:00";
+
+	// shows the score area
+	showScoreArea(true, userScore);
 }
 
+
+//  displays scores, stores info, adds info to score board and local storage info
+function displayScore() {
+	var scoreDisplay = [];
+
+	if (localStorage.length > 0) {
+		scoreDisplay.push("<div><h5>High Scores</h5></div>");
+
+		for (var i = 0; i < localStorage.length; i++) {
+			scoreDisplay.push("<div>" + localStorage.key(i) + ":" + localStorage.getItem(localStorage.key(i)) + "</div><hr>");
+		}
+		//  found code $('body').append(localStorage.key(i)));
+		highScore.children[0].innerHTML = scoreDisplay.join("");
+	}
+}
+
+//  start Time function and display
 function startTimer(duration, display) {
 
 	var minutes, seconds;
@@ -93,8 +167,9 @@ function startTimer(duration, display) {
 }
 
 // Quiz Area build for carousel.  From sitepoint & stackoverflow & bootsnipp.
+//  found ` to string code for carousel
 function buildQuiz() {
-	const output = [];
+	var output = [];
 
 	output.push(
 		`<div class="row">
@@ -104,7 +179,7 @@ function buildQuiz() {
 				<div class="carousel-inner">`
 	);
 	quizData.forEach((currentQuestion, questionNumber) => {
-		const answers = [];
+		var answers = [];
 
 		for (letter in currentQuestion.answers) {
 			answers.push(
