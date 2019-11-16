@@ -12,7 +12,7 @@ var quizData = [
     active: "active"
     },
     {
-        question: "Which of the following is corect syntax to display 'Hello World' in an alert box using JavaScript?",
+        question: "Which of the following is correct syntax to display 'Hello World' in an alert box using JavaScript?",
         answers: {
             a: "alert('Hello World')",
             b: "msg('Hello World')",
@@ -23,7 +23,7 @@ var quizData = [
         active: ""
     },
     {
-        question: "Which of the following is Not a reserved work in JavaScript?",
+        question: "Which of the following is Not a reserved word in JavaScript?",
         answers: {
             a: "interface",
             b: "function",
